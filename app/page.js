@@ -221,7 +221,7 @@ const handleMovieBtnClicked = () => {
       justifyContent={"center"}
       bgGradient="linear(to-b, #005C97, #0083B0)"
     >
-      <Box maxW="2xl" m="0 auto" p="20px">
+      <Box maxW="3xl" m="0 auto" p="20px">
         <Heading
           as="h1"
           textAlign="center"
@@ -230,10 +230,10 @@ const handleMovieBtnClicked = () => {
           bgGradient="linear(to-l, #C9FFBF, #FFAFBD)"
           bgClip="text"
         >
-          Twenty questions with an AI
+          Twenty Questions with AI
         </Heading>
         <Heading as="h2" textAlign="center" fontSize="3xl" mt="20px">
-          Made by Kenneth Kim
+          Made by Kenneth Kim <a href = "https://kennethkim0406.com/">&#127760;</a>
         </Heading>
         <Text fontSize="xl" textAlign="center" mt="10px">
           Powered by OpenAI's ChatGPT v3.5
@@ -334,6 +334,7 @@ const handleMovieBtnClicked = () => {
           placeholder="Insert your prompt here ..."
           mt="30px"
           size="lg"
+          color="black"
         />
         <Button
           isLoading={isLoading}
@@ -354,7 +355,11 @@ const handleMovieBtnClicked = () => {
         >
           Reset
         </Button>
+        <Box maxW="2xl" m="30px auto" color="black" fontSize="20px">
+              Visit my <u><a href ="https://www.kennethkim0406.com">website</a></u>, <u><a href ="https://www.linkedin.com/in/kennethkim7611/">linkedin</a></u>!
       </Box>
+      </Box>
+      
     </Flex>
   );
 }
