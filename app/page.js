@@ -28,7 +28,6 @@ export default function Home() {
 };
 
 const handleSubmitPromptBtnClicked = () => {
-  life -=1;
   if (life == -1) {
     window.location.reload();
   }
@@ -56,7 +55,7 @@ const handleSubmitPromptBtnClicked = () => {
       }
       setResult(combined);
   }
-  else if (life == -1) {
+  else if (life == 0) {
       screen = [];  
       questions.push(prompt);
         let text = "You lost! Correct Answer was "+answer
@@ -94,6 +93,7 @@ const handleSubmitPromptBtnClicked = () => {
       setIsLoading(false);
     });
   }
+  life -=1;
 };
 
 const handleAnimalBtnClicked = () => {
