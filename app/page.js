@@ -6,6 +6,8 @@ let questions = new Array();
 let chatanswers= new Array();
 let life = 20;
 let combined = "";
+let screen = [];
+let choice = "";
 
 export default function Home() {
   let [prompt, setPrompt] = useState("");
@@ -22,9 +24,15 @@ export default function Home() {
   setAnswer("");
   questions = [];
   chatanswers = [];
+  screen = [];
 };
 const handleSubmitPromptBtnClicked = () => {
   combined = ""
+  screen = [];
+  if (answer === "") {
+    alert("Please select the topic first")
+    return;
+  }
   if (prompt === "") {
     alert("Please enter a question")
     return;
@@ -33,10 +41,19 @@ const handleSubmitPromptBtnClicked = () => {
   setPrompt("");
   setResult("");
   if (answer.toLowerCase() === prompt.toLowerCase()){
-    alert('You got it')
-    return;
+      questions.push(prompt);
+      let text = "Correct!"
+      chatanswers.push(text);
+      for (let i=0; i<questions.length; i++) {
+        combined += questions[i]
+        combined += chatanswers[i]
+        screen.push(questions[i])
+        screen.push(chatanswers[i])
+      }
+      setResult(combined);
   }
-  setIsLoading(true);
+  else {
+    setIsLoading(true);
   fetch("/api/chat", {
     method: "POST",
     headers: {
@@ -51,16 +68,22 @@ const handleSubmitPromptBtnClicked = () => {
       questions.push(prompt);
       chatanswers.push(text);
       for (let i=0; i<questions.length; i++) {
-        combined += questions[i]+" -> "+chatanswers[i]+"\n"
+        combined += questions[i]
+        combined += chatanswers[i]
+        screen.push(questions[i])
+        screen.push(chatanswers[i])
       }
       setResult(combined);
       setIsLoading(false);
     });
+  }
 };
 const handleAnimalBtnClicked = () => {
+  choice = "Animal"
   combined="";
   questions = [];
   chatanswers = [];
+  screen = [];
   life = 20;
   setPrompt("");
   setResult("");
@@ -83,9 +106,11 @@ const handleAnimalBtnClicked = () => {
     });
 };
 const handleInstrumentBtnClicked = () => {
+  choice = "Instrument"
   combined = "";
   questions = [];
   chatanswers = [];
+  screen = [];
   life = 20;
   setPrompt("");
   setResult("");
@@ -108,9 +133,11 @@ const handleInstrumentBtnClicked = () => {
     });
 };
 const handleSportsBtnClicked = () => {
+  choice = "Sports"
   combined = "";
   questions = [];
   chatanswers = [];
+  screen = [];
   life = 20;
   setPrompt("");
   setResult("");
@@ -133,9 +160,11 @@ const handleSportsBtnClicked = () => {
     });
 };
 const handlePersonBtnClicked = () => {
+  choice = "Singer"
   combined = "";
   questions = [];
   chatanswers = [];
+  screen = [];
   life = 20;
   setPrompt("");
   setResult("");
@@ -146,7 +175,7 @@ const handlePersonBtnClicked = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      prompt: "Output random singer. Dont put period mark at the end",
+      prompt: "Output random singer. Dont put period mark at the end. Dont include any special accent letters.",
     }),
   })
     .then((res) => res.text())
@@ -158,9 +187,11 @@ const handlePersonBtnClicked = () => {
     });
 };
 const handleMovieBtnClicked = () => {
+  choice = "Movie"
   combined = "";
   questions = [];
   chatanswers = [];
+  screen = [];
   life = 20;
   setPrompt("");
   setResult("");
@@ -185,7 +216,7 @@ const handleMovieBtnClicked = () => {
   return (
     <Flex
       width={"100vw"}
-      height={"100vh"}
+      minHeight={"100vh"}
       alignContent={"center"}
       justifyContent={"center"}
       bgGradient="linear(to-b, #005C97, #0083B0)"
@@ -207,64 +238,96 @@ const handleMovieBtnClicked = () => {
         <Text fontSize="xl" textAlign="center" mt="10px">
           Powered by OpenAI's ChatGPT v3.5
         </Text>
-        <Heading as="h2" textAlign="center" fontSize="3xl" mt="10px">
-          Topics
-        </Heading>
-        <Button
-          isLoading={isLoading}
-          loadingText="Loading..."
-          colorScheme="teal"
-          size="lg"
-          mt="30px"
-          mr="10px"
-          onClick={handleAnimalBtnClicked}
-        >
-          Animal
-        </Button>
-        <Button
-          isLoading={isLoading}
-          loadingText="Loading..."
-          colorScheme="teal"
-          size="lg"
-          mt="30px"
-          mr="10px"
-          onClick={handleInstrumentBtnClicked}
-        >
-          Instrument
-        </Button>
-        <Button
-          isLoading={isLoading}
-          loadingText="Loading..."
-          colorScheme="teal"
-          size="lg"
-          mt="30px"
-          mr="10px"
-          onClick={handleSportsBtnClicked}
-        >
-          Sports
-        </Button>
-        <Button
-          isLoading={isLoading}
-          loadingText="Loading..."
-          colorScheme="teal"
-          size="lg"
-          mt="30px"
-          mr="10px"
-          onClick={handlePersonBtnClicked}
-        >
-          Singer
-        </Button>
-        <Button
-          isLoading={isLoading}
-          loadingText="Loading..."
-          colorScheme="teal"
-          size="lg"
-          mt="30px"
-          mr="10px"
-          onClick={handleMovieBtnClicked}
-        >
-          Movies
-        </Button>
+        {answer === "" && (
+          <>
+            <Button
+              isLoading={isLoading}
+              loadingText="Loading..."
+              colorScheme="teal"
+              size="lg"
+              mt="30px"
+              mr="10px"
+              onClick={handleAnimalBtnClicked}
+            >
+              Animal
+            </Button>
+            <Button
+              isLoading={isLoading}
+              loadingText="Loading..."
+              colorScheme="teal"
+              size="lg"
+              mt="30px"
+              mr="10px"
+              onClick={handleInstrumentBtnClicked}
+            >
+              Instrument
+            </Button>
+            <Button
+              isLoading={isLoading}
+              loadingText="Loading..."
+              colorScheme="teal"
+              size="lg"
+              mt="30px"
+              mr="10px"
+              onClick={handleSportsBtnClicked}
+            >
+              Sports
+            </Button>
+            <Button
+              isLoading={isLoading}
+              loadingText="Loading..."
+              colorScheme="teal"
+              size="lg"
+              mt="30px"
+              mr="10px"
+              onClick={handlePersonBtnClicked}
+            >
+              Singer
+            </Button>
+            <Button
+              isLoading={isLoading}
+              loadingText="Loading..."
+              colorScheme="teal"
+              size="lg"
+              mt="30px"
+              mr="10px"
+              onClick={handleMovieBtnClicked}
+            >
+              Movies
+            </Button>
+          </>
+        )}
+        {life == 20 && (
+          <Box maxW="2xl" m="0 auto">
+            <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
+              { answer=="" && (
+                "Click on the topic to generate questions!"
+              )
+              }
+              { answer !="" && (
+                "Ask me any questions! (Topic: "+choice+")"
+              )
+              }
+            </Heading>
+          </Box>
+        )
+        }
+        {result != "" && (
+          <Box maxW="2xl" m="0 auto">
+            <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
+              {life} Questions Left
+            </Heading>
+            <Text fontSize="lg" textAlign="left" mt="20px">
+                {screen.map((element, index) => (
+            <div key={index} style={{ display: "flex", flexDirection: index % 2 === 0 ? "row" : "row-reverse", marginBottom: "10px" }}>
+              <div style={{ background: index % 2 === 0 ? "#0275d8" : "#d8e1e9", color: index % 2 === 0 ? "#fff" : "#000", borderRadius: "10px", padding: "10px 15px", maxWidth: "70%", wordWrap: "break-word" }}>
+                {element}
+              </div>
+            </div>
+          ))}
+            </Text>
+          </Box>
+        )}
         <Textarea
           value={prompt}
           onChange={handlePromptChange}
@@ -291,21 +354,6 @@ const handleMovieBtnClicked = () => {
         >
           Reset
         </Button>
-        {result != "" && (
-          <Box maxW="2xl" m="0 auto">
-            <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
-              {life} Questions Left
-            </Heading>
-            <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
-              Results:
-            </Heading>
-            <Text fontSize="lg" textAlign="left" mt="20px">
-                {
-                  combined
-                }
-            </Text>
-          </Box>
-        )}
       </Box>
     </Flex>
   );

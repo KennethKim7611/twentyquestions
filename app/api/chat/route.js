@@ -17,8 +17,8 @@ export async function POST(request) {
         model: "gpt-3.5-turbo",
         messages: [{ role: "system", content: `User will ask assitant a question specifically about ${prompt[1]}, and you are 
         playing twenty questions with the user, which means the user will ask question not knowing what the answer is, and will try to
-        guess using your responses. You decided the answer to be ${prompt[1]}.
-        You will respond only "Yes"/"No"/"I can't answer that question with yes or no" 
+        guess using your responses. You decided the answer to be ${prompt[1]}. Never include ${prompt[1]} in your response!
+        You will respond only "Yes"/"No"/"I can't answer that question with yes or no"
         to user's question regarding ${prompt[1]}, don't use infromation from
         previous questions, and don't include explanantion to the questions that are asked. 
         If user's question regarding ${prompt[1]} is true, respond with "Yes", if it is not true
@@ -26,6 +26,7 @@ export async function POST(request) {
         equal to ${prompt[1]} you can say "No" to that.
         If the user asks question that you can't answer either 
         "Yes"/"No", respond "I can't answer that question with yes or no".
+        If the user says something unrelated to the twenty questions game, respond "Please ask me a question".
         Here are some examples for you: 
         Answer: Adele, prompt:Is this singer from UK?, system:Yes / 
         Answer: Elephant, prompt:Does this animal eat plants, system:Yes / 
