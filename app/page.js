@@ -66,7 +66,6 @@ const handleSubmitPromptBtnClicked = () => {
         screen.push(questions[i])
         screen.push(chatanswers[i])
       }
-      setResult(combined);
   }
   else {
     setIsLoading(true);
