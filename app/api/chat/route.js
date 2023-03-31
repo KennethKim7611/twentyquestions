@@ -27,7 +27,7 @@ export async function POST(request) {
         If you aren't sure of the question that is asked about ${prompt[1]}, respond "I'm not sure".
         If the user asks question that you can't answer either 
         "Yes"/"No", respond "I can't answer that question with yes or no".
-        If the user says something unrelated to the twenty questions game, respond "Please ask me a question".
+        If the user says something unrelated to the twenty questions game, respond "Please ask me a question" don't add additional comments.
         Again, never include the answer into your response! Make sure ${prompt[1]} isn't included in you response!!
         Don't try to be creative here, respond only with facts!
         Here are some examples for you: 
