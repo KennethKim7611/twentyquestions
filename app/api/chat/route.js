@@ -253,6 +253,9 @@ export async function POST(request) {
         User: Can you tell me how basketball got its name?
         AI: I can't answer that question with yes or no.
 
+        User: How many players?
+        AI: I can't answer that question with yes or no.
+
 
         `
         
