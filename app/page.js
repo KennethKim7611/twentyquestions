@@ -27,7 +27,7 @@ export default function Home() {
   screen = [];
 };
 const handleSubmitPromptBtnClicked = () => {
-  if (life == -1) {
+  if (life == 0) {
     window.location.reload();
   }
   if (life == 1) {
@@ -42,7 +42,6 @@ const handleSubmitPromptBtnClicked = () => {
         screen.push(chatanswers[i])
       }
       setResult(combined);
-      return;
   }
   combined = ""
   screen = [];
