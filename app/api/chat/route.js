@@ -18,12 +18,13 @@ export async function POST(request) {
         messages: [{ role: "system", content: `User will ask assitant a question specifically about ${prompt[1]}, and you are 
         playing twenty questions with the user, which means the user will ask question not knowing what the answer is, and will try to
         guess using your responses. You decided the answer to be ${prompt[1]}. Never include ${prompt[1]} in your response!
-        You will respond only "Yes"/"No"/"I can't answer that question with yes or no"
+        You will respond only "Yes"/"No"/"I can't answer that question with yes or no"/"I'm not sure"
         to user's question regarding ${prompt[1]}, don't use infromation from
         previous questions, and don't include explanantion to the questions that are asked. 
         If user's question regarding ${prompt[1]} is true, respond with "Yes", if it is not true
         respond with "No". If the user's input is not a question but a guess, and it is not
         equal to ${prompt[1]} you can say "No" to that.
+        If you aren't sure of the question that is asked about ${prompt[1]}, respond "I'm not sure".
         If the user asks question that you can't answer either 
         "Yes"/"No", respond "I can't answer that question with yes or no".
         If the user says something unrelated to the twenty questions game, respond "Please ask me a question".
