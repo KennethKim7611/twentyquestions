@@ -2,15 +2,16 @@
 import { useState } from "react";
 import { Heading, Text, Box, Flex, Button, Textarea } from "@chakra-ui/react";
 
-const questions = new Array();
-const chatanswers= new Array();
+let questions = new Array();
+let chatanswers= new Array();
+let life = 20;
+let combined = "";
 
 export default function Home() {
   let [prompt, setPrompt] = useState("");
   let [isLoading, setIsLoading] = useState(false);
   let [result, setResult] = useState("");
   let [answer, setAnswer] = useState("");
-  let combined = "";
 
   const handlePromptChange = (e) => {
     setPrompt(e.target.value);
@@ -19,9 +20,19 @@ export default function Home() {
   setPrompt("");
   setResult("");
   setAnswer("");
+  questions = [];
+  chatanswers = [];
 };
 const handleSubmitPromptBtnClicked = () => {
-  if (answer === prompt){
+  combined = ""
+  if (prompt === "") {
+    alert("Please enter a question")
+    return;
+  }
+  life -=1;
+  setPrompt("");
+  setResult("");
+  if (answer.toLowerCase() === prompt.toLowerCase()){
     alert('You got it')
     return;
   }
@@ -37,18 +48,22 @@ const handleSubmitPromptBtnClicked = () => {
   })
     .then((res) => res.text())
     .then((text) => {
-      console.log(questions);
       questions.push(prompt);
       chatanswers.push(text);
       for (let i=0; i<questions.length; i++) {
-        combined += questions[i]+" -> "+chatanswers[i]
-        combined += "\n"
+        combined += questions[i]+" -> "+chatanswers[i]+"\n"
       }
       setResult(combined);
       setIsLoading(false);
     });
 };
 const handleAnimalBtnClicked = () => {
+  combined="";
+  questions = [];
+  chatanswers = [];
+  life = 20;
+  setPrompt("");
+  setResult("");
   setIsLoading(true);
   fetch("/api/generate", {
     method: "POST",
@@ -68,6 +83,12 @@ const handleAnimalBtnClicked = () => {
     });
 };
 const handleInstrumentBtnClicked = () => {
+  combined = "";
+  questions = [];
+  chatanswers = [];
+  life = 20;
+  setPrompt("");
+  setResult("");
   setIsLoading(true);
   fetch("/api/generate", {
     method: "POST",
@@ -87,6 +108,12 @@ const handleInstrumentBtnClicked = () => {
     });
 };
 const handleSportsBtnClicked = () => {
+  combined = "";
+  questions = [];
+  chatanswers = [];
+  life = 20;
+  setPrompt("");
+  setResult("");
   setIsLoading(true);
   fetch("/api/generate", {
     method: "POST",
@@ -106,6 +133,12 @@ const handleSportsBtnClicked = () => {
     });
 };
 const handlePersonBtnClicked = () => {
+  combined = "";
+  questions = [];
+  chatanswers = [];
+  life = 20;
+  setPrompt("");
+  setResult("");
   setIsLoading(true);
   fetch("/api/generate", {
     method: "POST",
@@ -114,6 +147,31 @@ const handlePersonBtnClicked = () => {
     },
     body: JSON.stringify({
       prompt: "Output random singer. Dont put period mark at the end",
+    }),
+  })
+    .then((res) => res.text())
+    .then((text) => {
+      setAnswer(text);
+      answer = text;
+      console.log(answer)
+      setIsLoading(false);
+    });
+};
+const handleMovieBtnClicked = () => {
+  combined = "";
+  questions = [];
+  chatanswers = [];
+  life = 20;
+  setPrompt("");
+  setResult("");
+  setIsLoading(true);
+  fetch("/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      prompt: "Output random movie title. Dont put period mark at the end",
     }),
   })
     .then((res) => res.text())
@@ -137,19 +195,19 @@ const handlePersonBtnClicked = () => {
           as="h1"
           textAlign="center"
           fontSize="5xl"
-          mt="100px"
+          mt="50px"
           bgGradient="linear(to-l, #C9FFBF, #FFAFBD)"
           bgClip="text"
         >
-          Play Jeopardy game with an AI
+          Twenty questions with an AI
         </Heading>
         <Heading as="h2" textAlign="center" fontSize="3xl" mt="20px">
           Made by Kenneth Kim
         </Heading>
-        <Text fontSize="xl" textAlign="center" mt="30px">
+        <Text fontSize="xl" textAlign="center" mt="10px">
           Powered by OpenAI's ChatGPT v3.5
         </Text>
-        <Heading as="h2" textAlign="center" fontSize="3xl" mt="20px">
+        <Heading as="h2" textAlign="center" fontSize="3xl" mt="10px">
           Topics
         </Heading>
         <Button
@@ -158,6 +216,7 @@ const handlePersonBtnClicked = () => {
           colorScheme="teal"
           size="lg"
           mt="30px"
+          mr="10px"
           onClick={handleAnimalBtnClicked}
         >
           Animal
@@ -168,6 +227,7 @@ const handlePersonBtnClicked = () => {
           colorScheme="teal"
           size="lg"
           mt="30px"
+          mr="10px"
           onClick={handleInstrumentBtnClicked}
         >
           Instrument
@@ -178,6 +238,7 @@ const handlePersonBtnClicked = () => {
           colorScheme="teal"
           size="lg"
           mt="30px"
+          mr="10px"
           onClick={handleSportsBtnClicked}
         >
           Sports
@@ -188,9 +249,21 @@ const handlePersonBtnClicked = () => {
           colorScheme="teal"
           size="lg"
           mt="30px"
+          mr="10px"
           onClick={handlePersonBtnClicked}
         >
           Singer
+        </Button>
+        <Button
+          isLoading={isLoading}
+          loadingText="Loading..."
+          colorScheme="teal"
+          size="lg"
+          mt="30px"
+          mr="10px"
+          onClick={handleMovieBtnClicked}
+        >
+          Movies
         </Button>
         <Textarea
           value={prompt}
@@ -221,10 +294,15 @@ const handlePersonBtnClicked = () => {
         {result != "" && (
           <Box maxW="2xl" m="0 auto">
             <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
+              {life} Questions Left
+            </Heading>
+            <Heading as="h5" textAlign="left" fontSize="lg" mt="40px">
               Results:
             </Heading>
             <Text fontSize="lg" textAlign="left" mt="20px">
-              {result}
+                {
+                  combined
+                }
             </Text>
           </Box>
         )}
