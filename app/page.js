@@ -28,7 +28,7 @@ export default function Home() {
 };
 
 const handleSubmitPromptBtnClicked = () => {
-  if (life == -1) {
+  if (life == 0) {
     window.location.reload();
   }
   combined = ""
@@ -55,7 +55,7 @@ const handleSubmitPromptBtnClicked = () => {
       }
       setResult(combined);
   }
-  else if (life == 0) {
+  else if (life == 1) {
       screen = [];  
       questions.push(prompt);
         let text = "You lost! Correct Answer was "+answer
