@@ -30,7 +30,7 @@ const handleSubmitPromptBtnClicked = () => {
   if (life == -1) {
     window.location.reload();
   }
-  if (life == 0) {
+  if (life == 1) {
       questions.push(prompt);
       let text = "You lost! Correct Answer was "+answer
       chatanswers.push(text);
