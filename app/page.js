@@ -26,6 +26,7 @@ export default function Home() {
   chatanswers = [];
   screen = [];
 };
+
 const handleSubmitPromptBtnClicked = () => {
   life -=1;
   if (life == -1) {
@@ -53,6 +54,7 @@ const handleSubmitPromptBtnClicked = () => {
         screen.push(questions[i])
         screen.push(chatanswers[i])
       }
+      setResult(combined);
   }
   else if (life == 0) {
       screen = [];  
@@ -93,6 +95,7 @@ const handleSubmitPromptBtnClicked = () => {
     });
   }
 };
+
 const handleAnimalBtnClicked = () => {
   choice = "Animal"
   combined="";
