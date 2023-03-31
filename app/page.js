@@ -27,11 +27,11 @@ export default function Home() {
   screen = [];
 };
 const handleSubmitPromptBtnClicked = () => {
-  if (life == 0) {
+  life -=1;
+  if (life == -1) {
     window.location.reload();
   }
-  if (life == 1) {
-      life -=1;
+  if (life == 0) {
       questions.push(prompt);
       let text = "You lost! Correct Answer was "+answer
       chatanswers.push(text);
@@ -53,7 +53,6 @@ const handleSubmitPromptBtnClicked = () => {
     alert("Please enter a question")
     return;
   }
-  life -=1;
   setPrompt("");
   setResult("");
   if (answer.toLowerCase() === prompt.toLowerCase()){
