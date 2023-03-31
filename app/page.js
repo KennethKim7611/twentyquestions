@@ -27,7 +27,7 @@ export default function Home() {
   screen = [];
 };
 const handleSubmitPromptBtnClicked = () => {
-  if (life === 0) {
+  if (life == 0) {
       questions.push(prompt);
       let text = "You lost! Correct Answer was"+answer
       chatanswers.push(text);
