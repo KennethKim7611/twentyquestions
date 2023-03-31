@@ -27,6 +27,18 @@ export default function Home() {
   screen = [];
 };
 const handleSubmitPromptBtnClicked = () => {
+  if (life === 0) {
+      questions.push(prompt);
+      let text = "You lost! Correct Answer was"+answer
+      chatanswers.push(text);
+      for (let i=0; i<questions.length; i++) {
+        combined += questions[i]
+        combined += chatanswers[i]
+        screen.push(questions[i])
+        screen.push(chatanswers[i])
+      }
+      setResult(combined);
+  }
   combined = ""
   screen = [];
   if (answer === "") {
