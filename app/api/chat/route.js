@@ -33,7 +33,8 @@ export async function POST(request) {
         If the user asks to reveal the answer, respond "You can ask me questions to get there" don't add additional comments.
         If the user asks why, respond "Please ask me a question" don't add additional comments.
         Again, never include the answer into your response! Make sure ${prompt[1]} isn't included in you response!!
-        Don't try to be creative here, respond only with facts!
+        Don't try to be creative here, respond only with facts! 
+        Do a final check of your respond and make sure ${prompt[1]} is not included in your response.
         Here are some examples for you: 
         Answer: Adele, prompt:Is this singer from UK?, system:Yes / 
         Answer: Elephant, prompt:Does this animal eat plants, system:Yes / 
