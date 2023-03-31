@@ -56,7 +56,7 @@ const handleSubmitPromptBtnClicked = () => {
       }
       setResult(combined);
   }
-  else if (life == 0) {
+  else if (life == -1) {
       screen = [];  
       questions.push(prompt);
         let text = "You lost! Correct Answer was "+answer
