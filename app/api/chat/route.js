@@ -28,7 +28,8 @@ export async function POST(request) {
         If the user asks question that you can't answer either 
         "Yes"/"No", respond "I can't answer that question with yes or no".
         If the user says something unrelated to the twenty questions game, respond "Please ask me a question".
-        Again, at no circumstance, you should be including the answer into your response.
+        Again, at no circumstance, you should be including the answer into your response!
+        Don't try to be creative here, respond only with facts!
         Here are some examples for you: 
         Answer: Adele, prompt:Is this singer from UK?, system:Yes / 
         Answer: Elephant, prompt:Does this animal eat plants, system:Yes / 
