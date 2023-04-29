@@ -17,19 +17,14 @@ export async function POST(request) {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt}],
-        temperature: 0.7,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        max_tokens: 200,
-        stream: false,
-        n: 1,
+        temperature: 1,
+        max_tokens: 100,
       }),
     });
     const json = await response.json();
     return new Response(json.choices[0].message.content);
   } catch (e) {
-    return new Response("Request cannot be processed!", {
+    return new Response("Error code 2, Please Reset!", {
       status: 400,
     });
   }
