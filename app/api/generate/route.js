@@ -22,9 +22,10 @@ export async function POST(request) {
       }),
     });
     const json = await response.json();
+    console.log(json)
     return new Response(json.choices[0].message.content);
   } catch (e) {
-    return new Response("Error code 2, Please Reset!", {
+    return new Response(e, {
       status: 400,
     });
   }
